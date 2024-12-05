@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Preload critical fonts */
+@import '@fontsource/montserrat/400.css';
+@import '@fontsource/montserrat/700.css';
+@import '@fontsource/poppins/400.css';
+@import '@fontsource/poppins/700.css';
+@import '@fontsource/roboto/400.css';
+@import '@fontsource/roboto/700.css';
+
+/* Self-hosted font with preload */
+@font-face {
+  font-family: 'Raider Crusader';
+  src: url('/fonts/RaiderCrusader.woff2') format('woff2');
+  font-display: swap;
+}
+
+:root {
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  body {
+    @apply antialiased bg-neutral-white dark:bg-dark-primary text-primary-black dark:text-dark-primary font-roboto transition-colors duration-300;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-montserrat font-bold dark:text-white;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply relative overflow-hidden px-6 py-2 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg;
+  }
+  .btn-primary {
+    @apply bg-primary-red text-white hover:bg-red-600;
+  }
+  .section-fade {
+    @apply opacity-0 translate-y-4 transition-all duration-700;
+  }
+  .section-fade.in-view {
+    @apply opacity-100 translate-y-0;
+  }
+  .card-bg {
+    @apply bg-white dark:bg-dark-secondary;
+  }
+  .text-default {
+    @apply text-primary-black dark:text-white;
+  }
+  .text-muted {
+    @apply text-neutral-gray dark:text-dark-secondary;
+  }
+}
+
+/* Performance optimizations */
+.parallax-bg {
+  @apply fixed top-0 left-0 w-full h-full -z-10;
+  background-attachment: fixed;
+  transform: translateZ(0);
+  will-change: transform;
+  content-visibility: auto;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  background: rgba(255, 255, 255, 0.7);
+  pointer-events: none;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .parallax-bg {
+    background-attachment: scroll;
+  }
+}
+
+/* Image optimizations */
+img {
+  content-visibility: auto;
+}
+
+/* Reduce CLS */
+img, video {
+  @apply aspect-video object-cover;
+}
+
+/* Loading states */
+.loading {
+  @apply animate-pulse bg-gray-200 dark:bg-gray-700;
+}
